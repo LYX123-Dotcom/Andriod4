@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 主题配色：蓝 + 橙 + 绿 -->
+    <color name="color_primary">#2E5C8A</color>
+    <color name="color_primary_dark">#1F4266</color>
+    <color name="color_accent">#ED7D31</color>
+    <color name="color_green">#70AD47</color>
+
+    <!-- 界面背景与文字 -->
+    <color name="bg_light">#F4F6FA</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+
+    <!-- 牌桌毛毡背景 -->
+    <color name="felt_start">#2F7D5B</color>
+    <color name="felt_end">#174A34</color>
+    <color name="text_on_felt">#FFFFFF</color>
+    <color name="text_on_felt_sub">#CCFFFFFF</color>
+</resources>
