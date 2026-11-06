@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 竖屏：4 列 x 6 行，共 24 张 -->
+    <dimen name="card_height">100dp</dimen>
+    <dimen name="card_margin">4dp</dimen>
+    <dimen name="card_text_size">18sp</dimen>
+
+    <!-- 得分栏与按钮区的间距 -->
+    <dimen name="score_padding_vertical">12dp</dimen>
+    <dimen name="action_button_height">52dp</dimen>
+    <dimen name="action_padding_top">8dp</dimen>
+    <dimen name="action_padding_bottom">16dp</dimen>
+</resources>

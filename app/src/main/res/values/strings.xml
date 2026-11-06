@@ -44,6 +44,12 @@
     <string name="dialog_play_again">再来一局</string>
     <string name="dialog_back">返回</string>
 
+    <!-- 菜单与关于对话框 -->
+    <string name="menu_about">关于</string>
+    <string name="about_title">关于</string>
+    <string name="about_message">翻牌游戏 v1.0\n\nAndroid 移动应用开发 实验五\nRecyclerView + MVC 设计模式</string>
+    <string name="about_ok">确定</string>
+
     <!-- 多个爱好之间的分隔符 -->
     <string name="hobby_separator">、</string>
 </resources>

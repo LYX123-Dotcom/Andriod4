@@ -2,9 +2,12 @@ package cn.edu.sicnu.cs.lyx.android4
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         refreshInfo()
     }
 
-
+    /** 每次回到前台时同步最新数据（信息修改、游戏最高分都可能已变化） */
     private fun refreshInfo() {
         tvName.text = PlayerData.name
         tvGender.text = PlayerData.gender
@@ -52,5 +55,28 @@ class MainActivity : AppCompatActivity() {
         tvEmail.text = PlayerData.email
         tvHobby.text = PlayerData.hobbies.joinToString(getString(R.string.hobby_separator))
         tvHighScore.text = PlayerData.highScore.toString()
+    }
+
+    /** 创建选项菜单（右上角菜单按钮） */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    /** 菜单点击：选择“关于”时弹出关于对话框 */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_about) {
+            showAboutDialog()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAboutDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.about_title))
+            .setMessage(getString(R.string.about_message))
+            .setPositiveButton(getString(R.string.about_ok), null)
+            .show()
     }
 }
