@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.edu.sicnu.cardgame.CardMatchingGame
 
 
-class CardAdapter(val game: CardMatchingGame) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+class CardAdapter(val game: CardMatchingGame) :
+    RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardButton: Button

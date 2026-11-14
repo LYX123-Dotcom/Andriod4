@@ -1,33 +1,36 @@
 package cn.edu.sicnu.cardgame
 
+import java.io.Serializable
 
-class CardMatchingGame(val count: Int) {
+class CardMatchingGame(
+    val count: Int,
+    val cardsPerGroup: Int = 2
+) : Serializable {
+
     var score = 0
         private set
 
-    val cards: MutableList<Card>
+    var bestScore = 0
+        private set
 
-    init {
+    val cards: MutableList<Card> = dealCards(count)
+
+    private fun dealCards(size: Int): MutableList<Card> {
         val deck = Deck()
-        cards = mutableListOf()
-        for (i in 1..count) {
+        val result = mutableListOf<Card>()
+        for (i in 1..size) {
             val card: Card? = deck.drawRandomCard()
             if (card != null) {
-                cards.add(card)
+                result.add(card)
             }
         }
+        return result
     }
 
     /** 重新发一局：从 52 张牌中重新抽取 count 张，得分清零 */
     fun reset() {
-        val deck = Deck()
         cards.clear()
-        for (i in 1..count) {
-            val card: Card? = deck.drawRandomCard()
-            if (card != null) {
-                cards.add(card)
-            }
-        }
+        cards.addAll(dealCards(count))
         score = 0
     }
 
@@ -39,9 +42,7 @@ class CardMatchingGame(val count: Int) {
     val MATCH_BONUS = 4
     val COST_TO_CHOOSE = 1
 
-
     private fun chosenCards(): List<Card> = cards.filter { it.isChosen && !it.isMatched }
-
 
     fun chooseCardAtIndex(index: Int) {
         val card = cardAtIndex(index)
@@ -56,7 +57,7 @@ class CardMatchingGame(val count: Int) {
         card.isChosen = true
 
         val chosen = chosenCards()
-        if (chosen.size < 3) return
+        if (chosen.size < cardsPerGroup) return
 
         val matchScore = chosen[0].match(chosen.drop(1).toTypedArray())
         if (matchScore > 0) {
@@ -65,6 +66,9 @@ class CardMatchingGame(val count: Int) {
         } else {
             score -= MISMATCH_PENALTY
             chosen.forEach { it.isChosen = false }
+        }
+        if (score > bestScore) {
+            bestScore = score
         }
     }
 }

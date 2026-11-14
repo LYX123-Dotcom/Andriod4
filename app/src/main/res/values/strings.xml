@@ -47,9 +47,27 @@
     <!-- 菜单与关于对话框 -->
     <string name="menu_about">关于</string>
     <string name="about_title">关于</string>
-    <string name="about_message">翻牌游戏 v1.0\n\nAndroid 移动应用开发 实验五\nRecyclerView + MVC 设计模式</string>
+    <string name="about_message">翻牌游戏 v1.0\n\nAndroid 移动应用开发 实验六\nFragment + 对象序列化（openFileOutput / ObjectOutputStream）</string>
     <string name="about_ok">确定</string>
 
     <!-- 多个爱好之间的分隔符 -->
     <string name="hobby_separator">、</string>
+
+    <!-- 底部导航（三个 Fragment） -->
+    <string name="nav_profile">个人信息</string>
+    <string name="nav_game2">双牌游戏</string>
+    <string name="nav_game3">三牌游戏</string>
+
+    <!-- 个人信息 Fragment -->
+    <string name="profile_title">个人信息</string>
+    <string name="profile_tip">离开本页时自动用对象序列化写入 profile.dat，重新打开应用可恢复</string>
+    <string name="btn_save_profile">保存个人信息</string>
+    <string name="toast_profile_saved">个人信息已保存</string>
+    <string name="profile_save_status">已保存 %1$d 次，最近保存：%2$s</string>
+    <string name="profile_never_saved">尚未保存</string>
+
+    <!-- 翻牌游戏 Fragment -->
+    <string name="game2_title">2 张牌玩法：每次翻 2 张，点数相同 +16、花色相同 +4</string>
+    <string name="game3_title">3 张牌玩法：每次翻 3 张，点数相同 +16、花色相同 +4</string>
+    <string name="dialog_game_over_message_simple">本局得分：%1$d 分</string>
 </resources>

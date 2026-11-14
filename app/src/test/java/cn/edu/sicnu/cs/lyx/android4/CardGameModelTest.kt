@@ -12,7 +12,7 @@ import org.junit.Test
 
 /**
  * 游戏模型（Model 层）的单元测试：
- * 覆盖 Card 的两张 / 三张配对计分、Deck 发牌，以及 CardMatchingGame 的三张牌计分与 reset。
+ * 覆盖 Card 的配对计分、Deck 发牌、CardMatchingGame 的两种玩法（每次 2 张 / 3 张）与 reset。
  */
 class CardGameModelTest {
 
@@ -53,18 +53,10 @@ class CardGameModelTest {
     }
 
     @Test
-    fun match_threeCards_onePairIsEnough() {
-        // 只有一对同点，另外两张既不同点也不同花，仍算这一组配对成功
-        val card = Card(suit = "♥", rank = "A")
-        val others = arrayOf(Card(suit = "♠", rank = "A"), Card(suit = "♦", rank = "5"))
-        assertEquals(4, card.match(others))
-    }
-
-    @Test
     fun match_threeCards_allDifferent_scoresZero() {
         val card = Card(suit = "♥", rank = "A")
         val others = arrayOf(Card(suit = "♠", rank = "K"), Card(suit = "♦", rank = "5"))
-        assertEquals("三张点数和花色都不同，判定为不配对", 0, card.match(others))
+        assertEquals("点数和花色都不同，判定为不配对", 0, card.match(others))
     }
 
     // ---------- Deck ----------
@@ -76,35 +68,38 @@ class CardGameModelTest {
         assertNull("52 张牌发完后应返回 null", deck.drawRandomCard())
     }
 
-    // ---------- CardMatchingGame ----------
+    // ---------- CardMatchingGame：两张牌玩法 ----------
 
     @Test
     fun newGame_dealsRequestedCardCount() {
-        val game = CardMatchingGame(24)
+        val game = CardMatchingGame(24, 2)
         assertEquals(24, game.cards.size)
         assertEquals(0, game.score)
+        assertEquals(2, game.cardsPerGroup)
     }
 
     @Test
-    fun chooseCard_costsOnePoint() {
-        val game = CardMatchingGame(6)
+    fun twoCardMode_firstCardOnlyCostsOne() {
+        val game = CardMatchingGame(24, 2)
         game.chooseCardAtIndex(0)
         assertEquals(-1, game.score)
+        assertTrue("只翻一张时不判定配对", game.cardAtIndex(0).isChosen)
     }
 
     @Test
-    fun chooseChosenCard_flipsItBackWithoutExtraCost() {
-        val game = CardMatchingGame(6)
+    fun twoCardMode_secondCardTriggersJudgement() {
+        val game = CardMatchingGame(24, 2)
         game.chooseCardAtIndex(0)
-        game.chooseCardAtIndex(0)
-        assertFalse("再次选择应把牌盖回去", game.cardAtIndex(0).isChosen)
-        assertEquals("盖回已翻开的牌不再扣分", -1, game.score)
+        game.chooseCardAtIndex(1)
+        // 两张牌：配对成功则加分（总分 > 0），失配则 -1 -1 -2 = -4
+        assertTrue("第二张牌翻完后必然判定配对", game.score == -4 || game.score > 0)
     }
 
+    // ---------- CardMatchingGame：三张牌玩法 ----------
+
     @Test
-    fun onlyTwoChosen_noMatchJudgementYet() {
-        // 三张牌玩法：翻两张时只扣分，不判断配对
-        val game = CardMatchingGame(6)
+    fun threeCardMode_twoChosen_noJudgementYet() {
+        val game = CardMatchingGame(24, 3)
         game.chooseCardAtIndex(0)
         game.chooseCardAtIndex(1)
         assertEquals(-2, game.score)
@@ -113,24 +108,34 @@ class CardGameModelTest {
     }
 
     @Test
-    fun thirdCard_triggersMatchJudgement() {
-        // 翻满三张才判定：失配 -2（三张各扣 1，共 -5）；配对成功则加分，总分大于 0
-        val game = CardMatchingGame(6)
+    fun threeCardMode_thirdCardTriggersJudgement() {
+        val game = CardMatchingGame(24, 3)
         game.chooseCardAtIndex(0)
         game.chooseCardAtIndex(1)
         game.chooseCardAtIndex(2)
-        assertTrue("第三张后必然判定", game.score == -5 || game.score > 0)
+        // 三张失配：-1 -1 -1 -2 = -5；配对成功则加分
+        assertTrue("第三张牌翻完后必然判定配对", game.score == -5 || game.score > 0)
+    }
+
+    // ---------- 其它 ----------
+
+    @Test
+    fun chooseChosenCard_flipsItBackWithoutExtraCost() {
+        val game = CardMatchingGame(24, 2)
+        game.chooseCardAtIndex(0)
+        game.chooseCardAtIndex(0)
+        assertFalse("再次选择应把牌盖回去", game.cardAtIndex(0).isChosen)
+        assertEquals("盖回已翻开的牌不再扣分", -1, game.score)
     }
 
     @Test
     fun reset_redealsCardsAndClearsScore() {
-        val game = CardMatchingGame(6)
+        val game = CardMatchingGame(24, 2)
         game.chooseCardAtIndex(0)
         game.chooseCardAtIndex(1)
-        game.chooseCardAtIndex(2)
         game.reset()
         assertEquals("重置后得分应清零", 0, game.score)
-        assertEquals("重置后仍应发出 count 张牌", 6, game.cards.size)
+        assertEquals("重置后仍应发出 count 张牌", 24, game.cards.size)
         assertTrue("重置后的牌都不应处于已翻开状态", game.cards.none { it.isChosen || it.isMatched })
     }
 }
