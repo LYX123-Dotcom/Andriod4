@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_felt"
-    android:orientation="vertical"
-    tools:context=".CardGameActivity">
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_game_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="@dimen/game_title_padding_top"
+        android:paddingRight="20dp"
+        android:textColor="@color/text_on_felt_sub"
+        android:textSize="@dimen/game_title_text_size" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,40 +52,18 @@
         android:layout_weight="1"
         android:padding="4dp" />
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_reset"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_button_height"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="@dimen/action_padding_top"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="@dimen/action_padding_bottom"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingTop="@dimen/action_padding_top"
-        android:paddingRight="16dp"
-        android:paddingBottom="@dimen/action_padding_bottom">
+        android:text="@string/btn_reset_game"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@color/color_accent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_reset"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/action_button_height"
-            android:layout_weight="1"
-            android:text="@string/btn_reset_game"
-            android:textColor="@color/text_on_felt"
-            android:textSize="16sp"
-            app:backgroundTint="@color/color_accent" />
-
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="1dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_exit"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/action_button_height"
-            android:layout_weight="1"
-            android:text="@string/btn_exit_game"
-            android:textColor="@color/text_on_felt"
-            android:textSize="16sp"
-            app:strokeColor="@color/text_on_felt"
-            app:strokeWidth="1dp" />
-    </LinearLayout>
 </LinearLayout>

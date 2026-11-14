@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 竖屏：4 列 x 6 行，共 24 张 -->
-    <dimen name="card_height">100dp</dimen>
+    <dimen name="card_height">88dp</dimen>
     <dimen name="card_margin">4dp</dimen>
-    <dimen name="card_text_size">18sp</dimen>
+    <dimen name="card_text_size">17sp</dimen>
 
     <!-- 得分栏与按钮区的间距 -->
-    <dimen name="score_padding_vertical">12dp</dimen>
-    <dimen name="action_button_height">52dp</dimen>
-    <dimen name="action_padding_top">8dp</dimen>
-    <dimen name="action_padding_bottom">16dp</dimen>
+    <dimen name="score_padding_vertical">10dp</dimen>
+    <dimen name="action_button_height">50dp</dimen>
+    <dimen name="action_padding_top">6dp</dimen>
+    <dimen name="action_padding_bottom">12dp</dimen>
+
+    <!-- 游戏页顶部说明文字 -->
+    <dimen name="game_title_padding_top">10dp</dimen>
+    <dimen name="game_title_text_size">13sp</dimen>
 </resources>
