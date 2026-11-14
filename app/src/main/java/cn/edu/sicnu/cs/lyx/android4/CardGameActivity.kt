@@ -10,14 +10,7 @@ import cn.edu.sicnu.cardgame.CardMatchingGame
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-/**
- * 翻牌游戏 Activity（MVC 中的 Controller）：
- *  - Model：cn.edu.sicnu.cardgame 包下的 Card / Deck / CardMatchingGame（三张牌玩法）
- *  - View  ：item_layout（每张牌一个 Button）+ CardAdapter + RecyclerView 网格
- *  - Controller：本类。点击牌调用模型的 chooseCardAtIndex，updateUI 统一刷新界面。
- *
- * 横竖屏使用不同牌数：竖屏 4 列 x 6 行共 24 张，横屏 6 列 x 6 行共 36 张。
- */
+
 class CardGameActivity : AppCompatActivity() {
 
     companion object {
@@ -53,13 +46,13 @@ class CardGameActivity : AppCompatActivity() {
         }
     }
 
-    /** 旋转屏幕时按新的方向重建牌局（横竖屏牌数不同） */
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         startGame(newConfig.orientation)
     }
 
-    /** 按屏幕方向创建模型、适配器与网格布局 */
+
     private fun startGame(orientation: Int) {
         game = CardMatchingGame(cardCountFor(orientation))
         adapter = CardAdapter(game)
@@ -78,7 +71,7 @@ class CardGameActivity : AppCompatActivity() {
     private fun columnsFor(orientation: Int): Int =
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) COLUMNS_LANDSCAPE else COLUMNS_PORTRAIT
 
-    /** 统一刷新：牌面、得分与最高分，并在全部配对完成时弹结算框 */
+
     private fun updateUI() {
         adapter.notifyDataSetChanged()
         tvScore.text = getString(R.string.label_score, game.score)
@@ -89,7 +82,7 @@ class CardGameActivity : AppCompatActivity() {
         checkGameFinished()
     }
 
-    /** 全部配对完成时弹出结算对话框 */
+
     private fun checkGameFinished() {
         if (game.cards.isEmpty() || !game.cards.all { it.isMatched }) return
 

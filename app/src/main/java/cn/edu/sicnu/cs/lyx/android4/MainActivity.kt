@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         refreshInfo()
     }
 
-    /** 每次回到前台时同步最新数据（信息修改、游戏最高分都可能已变化） */
+
     private fun refreshInfo() {
         tvName.text = PlayerData.name
         tvGender.text = PlayerData.gender
@@ -57,13 +57,13 @@ class MainActivity : AppCompatActivity() {
         tvHighScore.text = PlayerData.highScore.toString()
     }
 
-    /** 创建选项菜单（右上角菜单按钮） */
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
-    /** 菜单点击：选择“关于”时弹出关于对话框 */
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_about) {
             showAboutDialog()

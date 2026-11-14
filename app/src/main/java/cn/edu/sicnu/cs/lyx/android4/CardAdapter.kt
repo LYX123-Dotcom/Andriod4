@@ -8,11 +8,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import cn.edu.sicnu.cardgame.CardMatchingGame
 
-/**
- * 翻牌游戏的 RecyclerView 适配器（View 层）。
- * 每张牌是一个 Button：未翻开显示牌背图片，已翻开显示“花色+点数”并设为白底，
- * 已配对则置为不可点击；点击时通过 mListener 回调把位置交给控制器。
- */
+
 class CardAdapter(val game: CardMatchingGame) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
